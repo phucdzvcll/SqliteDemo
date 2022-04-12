@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: io.insert-koin:koin-android-compat:3.1.6@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/76266f1e32036eb1e9c049eb689fdfcd/transformed/koin-android-compat-3.1.6/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/76266f1e32036eb1e9c049eb689fdfcd/transformed/koin-android-compat-3.1.6/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/76266f1e32036eb1e9c049eb689fdfcd/transformed/koin-android-compat-3.1.6/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.insert-koin/koin-android-compat/3.1.6/f7d9feb40ef142e0862946063dc8cb5ea9673dd0/koin-android-compat-3.1.6-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.insert-koin/koin-android-compat/3.1.6/9d180a1d5e2d94ddb51a3a2fb0d7a4e4bb47a97d/koin-android-compat-3.1.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

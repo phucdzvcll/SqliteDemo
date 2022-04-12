@@ -3,7 +3,7 @@ package com.example.sqlitedemo.view
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.sqlitedemo.features.AllChampFragment
+import com.example.sqlitedemo.features.displayAllChamp.view.AllChampFragment
 import com.example.sqlitedemo.features.AllItemFragment
 
 class MainPageAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(

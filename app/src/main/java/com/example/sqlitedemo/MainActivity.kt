@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.example.common_android.replaceFragment
 import com.example.sqlitedemo.view.MainFragment
 
-class MainActivity : AppCompatActivity() {
+class  MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

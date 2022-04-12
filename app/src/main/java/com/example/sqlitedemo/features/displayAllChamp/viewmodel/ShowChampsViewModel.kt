@@ -19,8 +19,9 @@ class ShowChampsViewModel(
     private val appDispatchers: AppDispatchers
 ) : BaseViewModel() {
     var jobListChamps: Job? = null
-    private val champsListChampsLiveData: MutableLiveData<List<ChampsEntity>> = MutableLiveData()
-    private val isLoading: MutableLiveData<Boolean> = MutableLiveData()
+    val champsListChampsLiveData: MutableLiveData<List<ChampsEntity>> = MutableLiveData()
+    val isLoading: MutableLiveData<Boolean> = MutableLiveData()
+
     fun getListChamps() {
         isLoading.value = true
         champsListChampsLiveData.value = listOf()
@@ -38,5 +39,4 @@ class ShowChampsViewModel(
             })
         }
     }
-
 }

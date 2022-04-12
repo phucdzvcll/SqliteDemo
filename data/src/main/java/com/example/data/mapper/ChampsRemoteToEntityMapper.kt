@@ -8,7 +8,7 @@ import com.example.data.reponse.ChampionResponse
 import com.example.domain.entities.ChampsEntity
 
 
-class ChampsListMapper : Mapper<ChampionResponse?, ChampsEntity>() {
+class ChampsRemoteToEntityMapper : Mapper<ChampionResponse?, ChampsEntity>() {
     override fun map(input: ChampionResponse?): ChampsEntity {
         return ChampsEntity(
             id = input?.id.defaultEmpty(),

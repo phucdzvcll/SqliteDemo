@@ -7,6 +7,9 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val createCommonModule = module {
-    single { AppDispatchers(Dispatchers.Main, Dispatchers.IO) }
+    single { AppDispatchers(
+        Dispatchers.Main,
+        Dispatchers.IO
+    ) }
     viewModel { NavigateViewModel() }
 }
