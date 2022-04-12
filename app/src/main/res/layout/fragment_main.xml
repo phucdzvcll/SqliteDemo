@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.example.sqlitedemo.common.DisableSwipeViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/tlMain"
+            android:background="@color/white" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_3"
+            android:layout_above="@+id/tlMain"
+            android:background="@drawable/bg_blur_top_1dp" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tlMain"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_55"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            app:tabBackground="@color/backgroundTabLayout"
+
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="fixed"
+            app:tabPaddingEnd="@dimen/dp_0"
+            app:tabPaddingStart="@dimen/dp_0" />
+    </RelativeLayout>
+</layout>

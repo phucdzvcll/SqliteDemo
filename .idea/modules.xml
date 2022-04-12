@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SqliteDemo.iml" filepath="$PROJECT_DIR$/.idea/modules/SqliteDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/SqliteDemo.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/SqliteDemo.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common_android/SqliteDemo.common_android.iml" filepath="$PROJECT_DIR$/.idea/modules/common_android/SqliteDemo.common_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common_jvm/SqliteDemo.common_jvm.iml" filepath="$PROJECT_DIR$/.idea/modules/common_jvm/SqliteDemo.common_jvm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/SqliteDemo.data.iml" filepath="$PROJECT_DIR$/.idea/modules/data/SqliteDemo.data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/SqliteDemo.domain.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/SqliteDemo.domain.iml" />
+    </modules>
+  </component>
+</project>

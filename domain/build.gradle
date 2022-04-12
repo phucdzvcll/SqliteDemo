@@ -1,0 +1,18 @@
+plugins {
+    id 'java-library'
+    id 'kotlin'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+dependencies {
+    def koin_version = "3.1.6"
+    //koin-------------------------------------------------
+    // Koin Core features
+    implementation "io.insert-koin:koin-core:$koin_version"
+    implementation project(path: ':common_jvm')
+
+}
