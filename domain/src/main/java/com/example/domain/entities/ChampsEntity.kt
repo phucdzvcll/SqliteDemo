@@ -4,5 +4,6 @@ data class ChampsEntity(
     val id: String,
     val name: String,
     val imgUrl:String,
-    val cost: Int
+    val cost: Int,
+    val imgPath: String,
 )

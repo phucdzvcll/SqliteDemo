@@ -4,7 +4,6 @@ import com.example.data.exception_interceptor.RemoteExceptionInterceptor
 import com.example.data.local.SqliteRoomDatabase
 import com.example.data.mapper.ChampsDBOToEntityMapper
 import com.example.data.mapper.ChampsRemoteDBOMapper
-import com.example.data.mapper.ChampsRemoteToEntityMapper
 import com.example.data.remote.ChampionApiService
 import com.example.data.repo.ChampsRepositoryImpl
 import com.example.domain.repo.ChampsRepository
@@ -35,7 +34,6 @@ val createRemoteModule = module {
     }
 
     factory { get<Retrofit>().create(ChampionApiService::class.java) }
-    factory { ChampsRemoteToEntityMapper() }
     factory { ChampsRemoteDBOMapper() }
     factory { ChampsDBOToEntityMapper() }
 
@@ -48,7 +46,6 @@ val createRemoteModule = module {
             remoteExceptionInterceptor = get(),
             champsDBOToEntityMapper = get(),
             champsRemoteDBOMapper = get(),
-            champsRemoteToEntityMapper = get(),
             champDAO = get(),
             championApiService = get()
         )

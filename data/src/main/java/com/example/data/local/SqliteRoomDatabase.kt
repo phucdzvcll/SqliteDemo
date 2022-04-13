@@ -11,7 +11,7 @@ import com.example.data.local.service.ChampDAO
     entities = [
         ChampDBO::class,
     ],
-    version = 1
+    version = 2
 )
 
 abstract class SqliteRoomDatabase : RoomDatabase() {
@@ -26,11 +26,8 @@ abstract class SqliteRoomDatabase : RoomDatabase() {
                 INSTANCE = Room.databaseBuilder(
                     context,
                     SqliteRoomDatabase::class.java,
-                    "Champ Manager"
-                )
-                    .allowMainThreadQueries()
-                    .fallbackToDestructiveMigration()
-                    .build()
+                    "sqlite demo"
+                ).build()
             }
 
             return INSTANCE!!

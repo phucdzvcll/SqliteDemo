@@ -8,4 +8,6 @@
     <dimen name="dp_2">2dp</dimen>
     <dimen name="dp_61">61dp</dimen>
     <dimen name="dp_20">20dp</dimen>
+    <dimen name="dp_48">48dp</dimen>
+    <dimen name="dp_36">36dp</dimen>
 </resources>

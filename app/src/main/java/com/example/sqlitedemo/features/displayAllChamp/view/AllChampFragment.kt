@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.sqlitedemo.R
 import com.example.sqlitedemo.features.displayAllChamp.adapter.ChampionAdapter
 import com.example.sqlitedemo.features.displayAllChamp.viewmodel.ShowChampsViewModel
@@ -26,17 +27,22 @@ class AllChampFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        refresh_indicator.isRefreshing = true
         view.champRcv.setHasFixedSize(true)
         view.champRcv.adapter = adapter
         showChampsViewModel.champsListChampsLiveData.observe(viewLifecycleOwner){
-            adapter.setupData(it)
+            adapter.setData(it)
         }
         showChampsViewModel.isLoading.observe(viewLifecycleOwner) {
-            if (it) {
-                progress_circular.visibility = View.VISIBLE
-            } else {
-                progress_circular.visibility = View.GONE
-            }
+            refresh_indicator.isRefreshing = it
+        }
+
+        showChampsViewModel.time.observe(viewLifecycleOwner){
+            timer.text = "$it ms"
+        }
+
+        refresh_indicator.setOnRefreshListener {
+            showChampsViewModel.getListChamps()
         }
     }
 
