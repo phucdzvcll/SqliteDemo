@@ -34,7 +34,7 @@ dependencies {
     def koin_version= "3.1.6"
     def retrofit2_version = "2.9.0"
     def okHttp_version = "4.9.0"
-    def room_version = "2.2.5"
+    def room_version = "2.4.2"
 
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"

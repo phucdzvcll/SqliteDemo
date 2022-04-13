@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/dp_4">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imgTabHomeIcon"
-        android:layout_width="@dimen/dp_24"
-        android:layout_height="@dimen/dp_24"
-        android:layout_centerHorizontal="true"
-        app:srcCompat="@color/color_00d5"
-        android:layout_alignParentTop="true"
-        android:scaleType="fitCenter"/>
-
-    <TextView
-        android:id="@+id/txtTabHomeTitle"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/imgTabHomeIcon"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_2"
-        android:gravity="center_horizontal|top"
-        android:textColor="@drawable/selector_tab_search_result"
-        android:textSize="12sp"
-        android:maxLines="1"
-        android:ellipsize="end"
-        tools:text="Trang chu" />
-</RelativeLayout>
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dp_4">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgTabHomeIcon"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitCenter"
+            app:srcCompat="@color/color_00d5" />
+
+        <TextView
+            android:id="@+id/txtTabHomeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgTabHomeIcon"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_2"
+            android:ellipsize="end"
+            android:gravity="center_horizontal|top"
+            android:maxLines="1"
+            android:textColor="@drawable/selector_tab_search_result"
+            android:textSize="12sp"
+            tools:text="Trang chu" />
+    </RelativeLayout>
+</layout>

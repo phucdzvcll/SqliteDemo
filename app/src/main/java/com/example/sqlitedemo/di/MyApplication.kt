@@ -17,7 +17,7 @@ class MyApplication : Application() {
                 createCommonModule,
                 createRemoteModule,
                 createDomainModule,
-                displayChampModule
+                displayChampModule,
             )
         }
     }

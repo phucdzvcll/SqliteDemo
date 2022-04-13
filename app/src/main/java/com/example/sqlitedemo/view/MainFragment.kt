@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import com.example.common_android.BaseFragment
 import com.example.sqlitedemo.R
 import com.example.sqlitedemo.databinding.FragmentMainBinding
+import com.example.sqlitedemo.databinding.ItemTabMainBinding
 
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.item_tab_main.view.*
 
 class MainFragment : BaseFragment() {
     private lateinit var mMainBinding: FragmentMainBinding
@@ -21,7 +21,7 @@ class MainFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mMainBinding = FragmentMainBinding.inflate(inflater, container, false)
         return mMainBinding.root
     }
@@ -61,10 +61,10 @@ class MainFragment : BaseFragment() {
         for (tab in tabs) {
             val tabView: TabLayout.Tab = mMainBinding.tlMain.newTab()
             val customTabView =
-                LayoutInflater.from(activity).inflate(R.layout.item_tab_main, null, false)
+                ItemTabMainBinding.inflate(LayoutInflater.from(mMainBinding.tlMain.context), null, false)
             customTabView.txtTabHomeTitle.text = tab.title
             customTabView.imgTabHomeIcon.setImageResource(tab.iconResId)
-            tabView.customView = customTabView
+            tabView.customView = customTabView.root
             mMainBinding.tlMain.addTab(tabView)
         }
         mMainBinding.tlMain.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
