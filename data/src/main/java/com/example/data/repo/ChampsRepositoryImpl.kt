@@ -1,5 +1,6 @@
 package com.example.data.repo
 
+import android.util.Log
 import com.example.common_jvm.exception.Failure
 import com.example.common_jvm.functional.Either
 import com.example.data.exception_interceptor.RemoteExceptionInterceptor
@@ -28,6 +29,7 @@ class ChampsRepositoryImpl(
             val champDBOs: List<ChampDBO> = champDAO.getAllChamp()
             if (champDBOs.isNullOrEmpty()) {
                 val champsListResponse: List<ChampionResponse> = championApiService.getChampsList()
+                Log.d("get champ list", champsListResponse.toString())
                 val userDBOS: List<ChampDBO> = champsRemoteDBOMapper.mapList(champsListResponse)
                 champDAO.insertChamps(userDBOS)
                 champsListEntities.clear()

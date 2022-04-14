@@ -21,6 +21,7 @@ class AllChampFragment : BaseFragment() {
         binding = FragmentShowAllBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         showChampsViewModel.getListChamps()
+        showChampsViewModel.syncData()
         return binding.root
     }
 
@@ -38,7 +39,11 @@ class AllChampFragment : BaseFragment() {
         }
 
         showChampsViewModel.time.observe(viewLifecycleOwner) {
-            binding.timer.text = "$it ms"
+            if (it > 1000) {
+                binding.timer.text = "${it/1000}s ${it%1000}ms"
+            } else {
+                binding.timer.text = "${it}ms"
+            }
         }
 
         binding.refreshIndicator.setOnRefreshListener {

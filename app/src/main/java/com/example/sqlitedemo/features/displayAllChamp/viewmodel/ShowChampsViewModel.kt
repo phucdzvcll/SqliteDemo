@@ -8,7 +8,9 @@ import com.example.common_android.BaseViewModel
 import com.example.common_jvm.exception.Failure
 import com.example.common_jvm.functional.Either
 import com.example.domain.entities.ChampsEntity
+import com.example.domain.entities.SyncDataEntity
 import com.example.domain.usecases.GetListChampsUseCase
+import com.example.domain.usecases.SyncDataUseCase
 import com.example.sqlitedemo.common.CountUpTimer
 import com.free.domain.usecases.base.UseCaseParams
 import kotlinx.coroutines.Job
@@ -17,9 +19,11 @@ import kotlinx.coroutines.withContext
 
 class ShowChampsViewModel(
     private val getListChampsUseCase: GetListChampsUseCase,
-    private val appDispatchers: AppDispatchers
+    private val appDispatchers: AppDispatchers,
+    private val syncDataUseCase: SyncDataUseCase
 ) : BaseViewModel() {
-    var jobListChamps: Job? = null
+    private var jobListChamps: Job? = null
+    private var syncDataJob: Job? = null
     val champsListChampsLiveData: MutableLiveData<List<ChampsEntity>> = MutableLiveData()
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
     val time: MutableLiveData<Int> = MutableLiveData()
@@ -29,6 +33,20 @@ class ShowChampsViewModel(
         }
     }
 
+    fun syncData() {
+        syncDataJob?.cancel()
+        syncDataJob = viewModelScope.launch(appDispatchers.main) {
+            val itemResult: Either<Failure, SyncDataEntity> =
+                withContext(appDispatchers.io) {
+                    syncDataUseCase.execute(UseCaseParams.Empty)
+                }
+            itemResult.either({ failure ->
+                Log.d("errorNe", failure.toString())
+            }, { result ->
+                time.value = 91919191
+            })
+        }
+    }
 
     fun getListChamps() {
         isLoading.value = true
@@ -50,5 +68,6 @@ class ShowChampsViewModel(
                 champsListChampsLiveData.value = result
             })
         }
+
     }
 }

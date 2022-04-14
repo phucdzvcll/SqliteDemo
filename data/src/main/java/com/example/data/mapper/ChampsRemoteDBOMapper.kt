@@ -8,8 +8,10 @@ import com.example.common_jvm.extension.defaultEmpty
 import com.example.common_jvm.extension.defaultFalse
 import com.example.common_jvm.extension.defaultZero
 import com.example.common_jvm.mapper.Mapper
+import com.example.common_jvm.mapper.MapperSuspend
 import com.example.data.local.response.ChampDBO
 import com.example.data.reponse.ChampionResponse
+import kotlinx.coroutines.CoroutineScope
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -17,8 +19,8 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 
-class ChampsRemoteDBOMapper : Mapper<ChampionResponse?, ChampDBO>() {
-    override fun map(input: ChampionResponse?): ChampDBO {
+class ChampsRemoteDBOMapper : MapperSuspend<ChampionResponse?, ChampDBO>() {
+    override suspend fun map(input: ChampionResponse?): ChampDBO {
         return ChampDBO(
             id = input?.id.defaultEmpty(),
             name = input?.name.defaultEmpty(),
@@ -27,12 +29,23 @@ class ChampsRemoteDBOMapper : Mapper<ChampionResponse?, ChampDBO>() {
             imagePath = saveImage(
                 image = input?.name.createImgUrl(),
                 imageName = input?.name.defaultEmpty(),
+                folderName = "Champ",
+                imgQuality = 24
+            ),
+            coverUrl = createCoverUrl(input),
+            coverPath = saveImage(
+                image = createCoverUrl(input),
+                imageName = "${input?.name.defaultEmpty()}_cover",
+                folderName = "Cover image",
+                imgQuality = 44
             )
         )
     }
 
-    private fun getBitmapFromURL(src: String?): Bitmap? {
+    private fun createCoverUrl(input: ChampionResponse?) =
+        "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${input?.name}_0.jpg"
 
+    private fun getBitmapFromURL(src: String?): Bitmap? {
         return try {
             val url = URL(src)
             val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
@@ -46,9 +59,9 @@ class ChampsRemoteDBOMapper : Mapper<ChampionResponse?, ChampDBO>() {
 
     }
 
-    private fun saveImage(image: String, imageName: String): String? {
+    private fun saveImage(image: String, imageName: String, folderName: String, imgQuality: Int): String? {
         val root = Environment.getExternalStorageDirectory().toString()
-        val myDir = File("$root/champ")
+        val myDir = File("$root/$folderName")
         return try {
             myDir.mkdirs()
             myDir.createNewFile()
@@ -56,7 +69,7 @@ class ChampsRemoteDBOMapper : Mapper<ChampionResponse?, ChampDBO>() {
             val file = File(myDir, fileName)
             val out = FileOutputStream(file)
             val bitmap = getBitmapFromURL(image)
-            val s: Boolean? = bitmap?.compress(Bitmap.CompressFormat.PNG, 100, out)
+            val s: Boolean? = bitmap?.compress(Bitmap.CompressFormat.PNG, imgQuality, out)
             out.flush()
             out.close()
             if (s.defaultFalse()) {

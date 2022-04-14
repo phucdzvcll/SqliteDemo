@@ -5,15 +5,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.data.local.response.ChampDBO
+import com.example.data.local.response.ChampTraitsDBO
 
 @Dao
-interface ChampDAO {
-    @Query("SELECT * FROM champ")
-     fun getAllChamp(): List<ChampDBO>
-
+interface ChampTraitsDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-     fun insertChamps(userDBOS: List<ChampDBO>)
+    fun insertChampsTraits(userDBOS: List<ChampTraitsDBO>)
 
-    @Query("DELETE FROM champ")
-     fun clearTable()
+    @Query("DELETE FROM champ_traits")
+    fun clearTable()
 }

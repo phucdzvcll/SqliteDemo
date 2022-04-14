@@ -10,6 +10,6 @@ import com.google.gson.annotations.SerializedName
         @SerializedName("name")
         val name: String?,
         @SerializedName("traits")
-        val traits: List<String>?,
+        val traits: List<String?>?,
     )
 

@@ -10,6 +10,8 @@ data class ChampDBO(
     val name: String,
     val imgUrl:String,
     val imagePath:String?,
-    val cost: Int
+    val cost: Int,
+    val coverUrl: String,
+    val coverPath: String?,
 ){
 }

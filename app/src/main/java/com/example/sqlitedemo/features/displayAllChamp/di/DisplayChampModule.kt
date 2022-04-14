@@ -8,7 +8,8 @@ val displayChampModule = module {
     viewModel {
         ShowChampsViewModel(
             getListChampsUseCase = get(),
-            appDispatchers = get()
+            appDispatchers = get(),
+            syncDataUseCase = get(),
         )
     }
 }

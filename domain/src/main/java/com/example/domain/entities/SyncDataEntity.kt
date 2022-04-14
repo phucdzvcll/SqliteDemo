@@ -1,6 +1,6 @@
 package com.example.domain.entities
 
-class SyncDataEntity(val syncDataEntity: SyncDataEntity)
+class SyncDataEntity(val syncDataStatus: SyncDataStatus)
 
 enum class SyncDataStatus{
     Success,Fail
