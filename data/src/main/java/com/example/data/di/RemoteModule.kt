@@ -74,6 +74,7 @@ val createRemoteModule = module {
             champTraitsDAO = get(),
             champTraitsMapper = get(),
             champItemsMapper = get(),
+            champsRemoteDBOMapper = get(),
             champItemsDAO = get()
         )
     }

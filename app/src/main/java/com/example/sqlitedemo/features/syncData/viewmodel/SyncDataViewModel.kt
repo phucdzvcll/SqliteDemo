@@ -6,10 +6,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.common_android.AppDispatchers
 import com.example.common_android.BaseViewModel
 import com.example.common_jvm.exception.Failure
+import com.example.common_jvm.extension.defaultEmpty
 import com.example.common_jvm.functional.Either
-import com.example.domain.entities.ChampsEntity
 import com.example.domain.entities.SyncChampsItemsEntity
 import com.example.domain.entities.SyncChampsTrainsEntity
+import com.example.domain.entities.SyncListChampsEntity
 import com.example.domain.usecases.SyncChampionsItemsUseCase
 import com.example.domain.usecases.SyncListChampsUseCase
 import com.example.domain.usecases.SyncChampionsTraitsUseCase
@@ -28,16 +29,24 @@ class SyncDataViewModel(
     private var jobListChamps: Job? = null
     private var syncChampsTraitsJob: Job? = null
     private var syncChampsItemsJob: Job? = null
-    val champsListChampsLiveData: MutableLiveData<List<ChampsEntity>> = MutableLiveData()
+    val syncListChampsLiveData: MutableLiveData<String> = MutableLiveData("")
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
     val time: MutableLiveData<Int> = MutableLiveData()
     private val timer = object : CountUpTimer(999999999) {
         override fun onTick(second: Int) {
+            if (second % 500 == 0) {
+                val oldValue: String = syncListChampsLiveData.value.defaultEmpty()
+                if (oldValue.replace(" ","") == "........") {
+                    syncListChampsLiveData.value = ""
+                } else {
+                    syncListChampsLiveData.value = "$oldValue ."
+                }
+            }
             time.value = second
         }
     }
 
-     private fun syncChampsItems(){
+    private fun syncChampsItems() {
         syncChampsItemsJob?.cancel()
         syncChampsItemsJob = viewModelScope.launch(appDispatchers.main) {
             val itemResult: Either<Failure, SyncChampsItemsEntity> =
@@ -52,7 +61,7 @@ class SyncDataViewModel(
         }
     }
 
-     private fun syncChampsTraits() {
+    private fun syncChampsTraits() {
         syncChampsTraitsJob?.cancel()
         syncChampsTraitsJob = viewModelScope.launch(appDispatchers.main) {
             val itemResult: Either<Failure, SyncChampsTrainsEntity> =
@@ -63,32 +72,33 @@ class SyncDataViewModel(
                 Log.d("errorNe", failure.toString())
             }, { result ->
                 time.value = 2222222
-                syncChampsItems()
+                //syncChampsItems()
             })
         }
     }
 
     fun syncData() {
         isLoading.value = false
-        champsListChampsLiveData.value = listOf()
+        syncListChampsLiveData.value = "."
         jobListChamps?.cancel()
         time.value = 0
         timer.start()
         jobListChamps = viewModelScope.launch(appDispatchers.main) {
-            val itemResult: Either<Failure, List<ChampsEntity>> =
+            val itemResult: Either<Failure, SyncListChampsEntity> =
                 withContext(appDispatchers.io) {
                     syncListChampsUseCase.execute(UseCaseParams.Empty)
                 }
             itemResult.either({ failure ->
                 timer.cancel()
+                syncListChampsLiveData.value = "error"
                 Log.d("errorNe", failure.toString())
-            }, { result ->
+            }, {
                 timer.cancel()
                 isLoading.value = false
-                champsListChampsLiveData.value = result
+                syncListChampsLiveData.value = "${time.value} ms"
             })
         }
-        syncChampsTraits()
-        syncChampsItems()
+//        syncChampsTraits()
+//        syncChampsItems()
     }
 }

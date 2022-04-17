@@ -24,7 +24,10 @@ class SyncData() : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        SyncDialogFragment.newInstance().show(childFragmentManager, "Sync Data...")
+        syncDataViewModel.syncData()
+        val newInstance = SyncDialogFragment.newInstance()
+        newInstance.isCancelable = false
+        newInstance.show(childFragmentManager, "Sync Data...")
     }
 
     companion object {
