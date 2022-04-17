@@ -19,4 +19,8 @@
     </style>
     <style name="Theme.SqliteDemo.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.SqliteDemo.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="NoMarginsDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowMinWidthMajor">97%</item>
+        <item name="android:windowMinWidthMinor">97%</item>
+    </style>
 </resources>
