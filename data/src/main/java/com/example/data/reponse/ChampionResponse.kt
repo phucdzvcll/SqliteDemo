@@ -11,5 +11,7 @@ import com.google.gson.annotations.SerializedName
         val name: String?,
         @SerializedName("traits")
         val traits: List<String?>?,
+        @SerializedName("items")
+        val items: List<String?>?,
     )
 

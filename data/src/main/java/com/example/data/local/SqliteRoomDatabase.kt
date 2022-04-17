@@ -5,14 +5,17 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.data.local.response.ChampDBO
+import com.example.data.local.response.ChampItemsDBO
 import com.example.data.local.response.ChampTraitsDBO
 import com.example.data.local.service.ChampDAO
+import com.example.data.local.service.ChampItemsDAO
 import com.example.data.local.service.ChampTraitsDAO
 
 @Database(
     entities = [
         ChampDBO::class,
         ChampTraitsDBO::class,
+        ChampItemsDBO::class,
     ],
     version = 3
 )
@@ -20,6 +23,7 @@ import com.example.data.local.service.ChampTraitsDAO
 abstract class SqliteRoomDatabase : RoomDatabase() {
     abstract fun champDAO(): ChampDAO
     abstract fun champTraitsDAO(): ChampTraitsDAO
+    abstract fun ChampItemsDAO(): ChampItemsDAO
 
     companion object {
 

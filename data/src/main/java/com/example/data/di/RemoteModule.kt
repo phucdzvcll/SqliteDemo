@@ -6,8 +6,10 @@ import com.example.common_jvm.extension.readTimeOut
 import com.example.common_jvm.extension.writeTimeOut
 import com.example.data.exception_interceptor.RemoteExceptionInterceptor
 import com.example.data.local.SqliteRoomDatabase
+import com.example.data.local.service.ChampItemsDAO
 import com.example.data.mapper.ChampsDBOToEntityMapper
 import com.example.data.mapper.ChampsRemoteDBOMapper
+import com.example.data.mapper.syncDataMappers.ChampItemsMapper
 import com.example.data.mapper.syncDataMappers.ChampTraitsMapper
 import com.example.data.remote.ChampionApiService
 import com.example.data.remote.SyncDataApiService
@@ -46,10 +48,12 @@ val createRemoteModule = module {
     factory { ChampsRemoteDBOMapper() }
     factory { ChampsDBOToEntityMapper() }
     factory { ChampTraitsMapper() }
+    factory { ChampItemsMapper() }
 
     single { SqliteRoomDatabase.getInstance(androidContext()) }
     single { get<SqliteRoomDatabase>().champDAO() }
     single { get<SqliteRoomDatabase>().champTraitsDAO() }
+    single { get<SqliteRoomDatabase>().ChampItemsDAO() }
 
 
     single<ChampsRepository> {
@@ -69,6 +73,8 @@ val createRemoteModule = module {
             champDAO = get(),
             champTraitsDAO = get(),
             champTraitsMapper = get(),
+            champItemsMapper = get(),
+            champItemsDAO = get()
         )
     }
 }

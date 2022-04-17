@@ -1,4 +1,4 @@
-package com.example.sqlitedemo.features.displayAllChamp.viewmodel
+package com.example.sqlitedemo.features.syncData.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -8,22 +8,26 @@ import com.example.common_android.BaseViewModel
 import com.example.common_jvm.exception.Failure
 import com.example.common_jvm.functional.Either
 import com.example.domain.entities.ChampsEntity
-import com.example.domain.entities.SyncDataEntity
-import com.example.domain.usecases.GetListChampsUseCase
-import com.example.domain.usecases.SyncDataUseCase
+import com.example.domain.entities.SyncChampsItemsEntity
+import com.example.domain.entities.SyncChampsTrainsEntity
+import com.example.domain.usecases.SyncChampionsItemsUseCase
+import com.example.domain.usecases.SyncListChampsUseCase
+import com.example.domain.usecases.SyncChampionsTraitsUseCase
 import com.example.sqlitedemo.common.CountUpTimer
 import com.free.domain.usecases.base.UseCaseParams
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ShowChampsViewModel(
-    private val getListChampsUseCase: GetListChampsUseCase,
+class SyncDataViewModel(
+    private val syncListChampsUseCase: SyncListChampsUseCase,
     private val appDispatchers: AppDispatchers,
-    private val syncDataUseCase: SyncDataUseCase
+    private val syncChampionsTraitsUseCase: SyncChampionsTraitsUseCase,
+    private val syncChampsItemsUseCase: SyncChampionsItemsUseCase
 ) : BaseViewModel() {
     private var jobListChamps: Job? = null
-    private var syncDataJob: Job? = null
+    private var syncChampsTraitsJob: Job? = null
+    private var syncChampsItemsJob: Job? = null
     val champsListChampsLiveData: MutableLiveData<List<ChampsEntity>> = MutableLiveData()
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
     val time: MutableLiveData<Int> = MutableLiveData()
@@ -33,23 +37,39 @@ class ShowChampsViewModel(
         }
     }
 
-    fun syncData() {
-        syncDataJob?.cancel()
-        syncDataJob = viewModelScope.launch(appDispatchers.main) {
-            val itemResult: Either<Failure, SyncDataEntity> =
+     private fun syncChampsItems(){
+        syncChampsItemsJob?.cancel()
+        syncChampsItemsJob = viewModelScope.launch(appDispatchers.main) {
+            val itemResult: Either<Failure, SyncChampsItemsEntity> =
                 withContext(appDispatchers.io) {
-                    syncDataUseCase.execute(UseCaseParams.Empty)
+                    syncChampsItemsUseCase.execute(UseCaseParams.Empty)
                 }
             itemResult.either({ failure ->
                 Log.d("errorNe", failure.toString())
             }, { result ->
-                time.value = 91919191
+                time.value = 1111111
             })
         }
     }
 
-    fun getListChamps() {
-        isLoading.value = true
+     private fun syncChampsTraits() {
+        syncChampsTraitsJob?.cancel()
+        syncChampsTraitsJob = viewModelScope.launch(appDispatchers.main) {
+            val itemResult: Either<Failure, SyncChampsTrainsEntity> =
+                withContext(appDispatchers.io) {
+                    syncChampionsTraitsUseCase.execute(UseCaseParams.Empty)
+                }
+            itemResult.either({ failure ->
+                Log.d("errorNe", failure.toString())
+            }, { result ->
+                time.value = 2222222
+                syncChampsItems()
+            })
+        }
+    }
+
+    fun syncData() {
+        isLoading.value = false
         champsListChampsLiveData.value = listOf()
         jobListChamps?.cancel()
         time.value = 0
@@ -57,7 +77,7 @@ class ShowChampsViewModel(
         jobListChamps = viewModelScope.launch(appDispatchers.main) {
             val itemResult: Either<Failure, List<ChampsEntity>> =
                 withContext(appDispatchers.io) {
-                    getListChampsUseCase.execute(UseCaseParams.Empty)
+                    syncListChampsUseCase.execute(UseCaseParams.Empty)
                 }
             itemResult.either({ failure ->
                 timer.cancel()
@@ -68,6 +88,7 @@ class ShowChampsViewModel(
                 champsListChampsLiveData.value = result
             })
         }
-
+        syncChampsTraits()
+        syncChampsItems()
     }
 }

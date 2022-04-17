@@ -7,7 +7,7 @@ import com.example.domain.entities.ChampsEntity
 import com.example.domain.repo.ChampsRepository
 import com.free.domain.usecases.base.UseCaseParams
 
-class GetListChampsUseCase(private val champsRepository: ChampsRepository) :
+class SyncListChampsUseCase(private val champsRepository: ChampsRepository) :
     UseCase<UseCaseParams.Empty, List<ChampsEntity>>() {
     override suspend fun executeInternal(params: UseCaseParams.Empty): Either<Failure, List<ChampsEntity>> {
         return champsRepository.getListChamp()
