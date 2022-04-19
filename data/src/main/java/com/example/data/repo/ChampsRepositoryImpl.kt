@@ -7,7 +7,7 @@ import com.example.data.exception_interceptor.RemoteExceptionInterceptor
 import com.example.data.local.response.ChampDBO
 import com.example.data.local.service.ChampDAO
 import com.example.data.mapper.ChampsDBOToEntityMapper
-import com.example.data.mapper.ChampsRemoteDBOMapper
+import com.example.data.mapper.syncDataMappers.ChampsRemoteDBOMapper
 import com.example.data.remote.ChampionApiService
 import com.example.data.reponse.ChampionResponse
 import com.example.domain.entities.ChampsEntity

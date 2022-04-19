@@ -10,6 +10,7 @@ val displayChampModule = module {
             appDispatchers = get(),
             syncChampionsTraitsUseCase = get(),
             syncChampsItemsUseCase = get(),
+            syncListItemsUseCase = get(),
             syncListChampsUseCase = get(),
         )
     }

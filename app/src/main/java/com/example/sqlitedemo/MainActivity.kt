@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.common_android.replaceFragment
@@ -37,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
         if (permission == PackageManager.PERMISSION_GRANTED) {
-            syncDataViewModel.syncData()
+            syncDataViewModel.syncListChamps()
             val fragment = SyncData.newInstance()
             replaceFragment(fragment, R.id.frameHome)
         } else {

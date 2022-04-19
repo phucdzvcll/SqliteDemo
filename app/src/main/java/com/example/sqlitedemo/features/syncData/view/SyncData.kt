@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.common_android.BaseFragment
-import com.example.sqlitedemo.R
 import com.example.sqlitedemo.databinding.FragmentSyncDataBinding
-import com.example.sqlitedemo.databinding.FragmentSyncDialogBinding
 import com.example.sqlitedemo.features.syncData.viewmodel.SyncDataViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -24,7 +22,8 @@ class SyncData() : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        syncDataViewModel.syncData()
+        syncDataViewModel.syncListChamps()
+        syncDataViewModel.syncListItems()
         val newInstance = SyncDialogFragment.newInstance()
         newInstance.isCancelable = false
         newInstance.show(childFragmentManager, "Sync Data...")

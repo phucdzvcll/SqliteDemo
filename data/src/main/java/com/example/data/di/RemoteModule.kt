@@ -6,11 +6,11 @@ import com.example.common_jvm.extension.readTimeOut
 import com.example.common_jvm.extension.writeTimeOut
 import com.example.data.exception_interceptor.RemoteExceptionInterceptor
 import com.example.data.local.SqliteRoomDatabase
-import com.example.data.local.service.ChampItemsDAO
 import com.example.data.mapper.ChampsDBOToEntityMapper
-import com.example.data.mapper.ChampsRemoteDBOMapper
+import com.example.data.mapper.syncDataMappers.ChampsRemoteDBOMapper
 import com.example.data.mapper.syncDataMappers.ChampItemsMapper
 import com.example.data.mapper.syncDataMappers.ChampTraitsMapper
+import com.example.data.mapper.syncDataMappers.ItemsRemoteDBOMapper
 import com.example.data.remote.ChampionApiService
 import com.example.data.remote.SyncDataApiService
 import com.example.data.repo.ChampsRepositoryImpl
@@ -49,11 +49,13 @@ val createRemoteModule = module {
     factory { ChampsDBOToEntityMapper() }
     factory { ChampTraitsMapper() }
     factory { ChampItemsMapper() }
+    factory { ItemsRemoteDBOMapper() }
 
     single { SqliteRoomDatabase.getInstance(androidContext()) }
     single { get<SqliteRoomDatabase>().champDAO() }
     single { get<SqliteRoomDatabase>().champTraitsDAO() }
     single { get<SqliteRoomDatabase>().ChampItemsDAO() }
+    single { get<SqliteRoomDatabase>().ItemsDAO() }
 
 
     single<ChampsRepository> {
@@ -75,6 +77,8 @@ val createRemoteModule = module {
             champTraitsMapper = get(),
             champItemsMapper = get(),
             champsRemoteDBOMapper = get(),
+            itemsRemoteDBOMapper = get(),
+            itemsDAO = get(),
             champItemsDAO = get()
         )
     }

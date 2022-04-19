@@ -42,7 +42,6 @@
         </androidx.appcompat.widget.Toolbar>
 
         <TextView
-            android:id="@+id/syncListChamp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_8"
@@ -52,5 +51,17 @@
             android:textSize="18sp"
             android:textStyle="bold"
             tools:text="Sync list champions ...." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_8"
+            android:padding="@dimen/dp_8"
+            android:text="@{`Sync list items ` + syncDataViewModel.syncListItemsLiveData}"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="Sync list champions ...." />
+
     </LinearLayout>
 </layout>
