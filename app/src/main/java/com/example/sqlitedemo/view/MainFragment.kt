@@ -8,10 +8,13 @@ import com.example.common_android.BaseFragment
 import com.example.sqlitedemo.R
 import com.example.sqlitedemo.databinding.FragmentMainBinding
 import com.example.sqlitedemo.databinding.ItemTabMainBinding
+import com.example.sqlitedemo.main.displayAllChamp.viewmodel.SyncDataViewModel
 
 import com.google.android.material.tabs.TabLayout
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : BaseFragment() {
+    private val syncDataViewModel: SyncDataViewModel by viewModel()
     private lateinit var mMainBinding: FragmentMainBinding
     private var mainPageAdapter: MainPageAdapter? = null
     private val tabs = mutableListOf<MainPageAdapter.ItemPage>()
@@ -109,6 +112,7 @@ class MainFragment : BaseFragment() {
     }
 
     companion object {
+        const val TAG = "MainFragment"
         fun newInstance(): MainFragment {
             return MainFragment()
         }

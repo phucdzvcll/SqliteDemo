@@ -12,7 +12,9 @@ data class ItemsDBO(
     val shadowBonus: String?,
     val shadowPenalty: String?,
     val isShadow: Boolean?,
+    val isElement: Boolean?,
     val imgUrl: String?,
     val imagePath: String?,
-    val elements : Int?
+    val element1 : Int?,
+    val element2 : Int?
 )

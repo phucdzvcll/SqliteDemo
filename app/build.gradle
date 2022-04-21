@@ -57,7 +57,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
-    implementation 'com.google.android.material:material:1.6.0-beta01'
+    implementation 'com.google.android.material:material:1.7.0-alpha01'
 
     //koin-------------------------------------------------
     // Koin Core features
@@ -90,4 +90,6 @@ dependencies {
     implementation project(path: ':data')
     implementation project(path: ':domain')
 
+    //multitype
+    implementation 'com.drakeet.multitype:multitype:4.2.0'
 }

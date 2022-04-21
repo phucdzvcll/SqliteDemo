@@ -15,4 +15,27 @@ abstract class BaseFragment : Fragment() {
     fun navigateBack() {
         navigateViewModel.navigateBack()
     }
+    open fun onBackPressed(): Boolean {
+        return false
+    }
+
+    fun backPressed(): Boolean {
+        val fragmentList = childFragmentManager.fragments
+
+        var handled = false
+        for (f in fragmentList) {
+            if (f is BaseFragment) {
+                handled = f.backPressed()
+                if (handled) {
+                    break
+                }
+            }
+        }
+
+        if (!handled) {
+            return onBackPressed()
+        }
+
+        return handled
+    }
 }

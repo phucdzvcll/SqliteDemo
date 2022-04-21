@@ -1,4 +1,4 @@
-package com.free.common_android
+package com.example.common_android
 
 import android.os.Bundle
 import androidx.activity.viewModels
