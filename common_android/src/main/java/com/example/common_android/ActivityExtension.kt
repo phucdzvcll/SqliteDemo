@@ -1,9 +1,5 @@
 package com.example.common_android
 
-import android.app.Activity
-import android.content.res.Resources
-import android.view.View
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -12,29 +8,38 @@ inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Fragmen
     beginTransaction().func().commit()
 }
 
-inline fun FragmentManager.inTransactionToBackStack(name: String, func: FragmentTransaction.() -> FragmentTransaction) {
+inline fun FragmentManager.inTransactionToBackStack(
+    name: String,
+    func: FragmentTransaction.() -> FragmentTransaction
+) {
     beginTransaction().func().addToBackStack(name).commit()
 }
 
-fun FragmentActivity.addFragment(fragment: BaseFragment, frameId: Int, name: String){
-    if (supportFragmentManager.isStateSaved) {
-        return
-    }
-    supportFragmentManager.inTransactionToBackStack(name) { add(frameId, fragment) }
-}
 
 fun FragmentActivity.replaceFragment(fragment: BaseFragment, frameId: Int) {
     if (supportFragmentManager.isStateSaved) {
         return
     }
-    supportFragmentManager.inTransaction{replace(frameId, fragment)}
+    supportFragmentManager.inTransaction { setCustomAnimations(
+        R.anim.slide_in,
+        R.anim.fade_out,
+        R.anim.fade_in,
+        R.anim.slide_out,
+    ).replace(frameId, fragment) }
 }
 
 fun FragmentActivity.inTransactionToBackStack(fragment: BaseFragment, frameId: Int, name: String) {
     if (supportFragmentManager.isStateSaved) {
         return
     }
-    supportFragmentManager.inTransactionToBackStack(name){replace(frameId, fragment)}
+    supportFragmentManager.inTransactionToBackStack(name) {
+        setCustomAnimations(
+            R.anim.slide_in,
+            R.anim.fade_out,
+            R.anim.fade_in,
+            R.anim.slide_out,
+        ).replace(frameId, fragment)
+    }
 }
 
 fun FragmentActivity.popFragment() {

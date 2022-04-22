@@ -1,14 +1,12 @@
 package com.example.data.repo
 
 import com.example.common_jvm.exception.Failure
+import com.example.common_jvm.extension.defaultEmpty
 import com.example.common_jvm.functional.Either
 import com.example.data.exception_interceptor.RemoteExceptionInterceptor
 import com.example.data.local.response.ChampDBO
 import com.example.data.local.response.ItemsDBO
-import com.example.data.local.service.ChampDAO
-import com.example.data.local.service.ChampItemsDAO
-import com.example.data.local.service.ChampTraitsDAO
-import com.example.data.local.service.ItemsDAO
+import com.example.data.local.service.*
 import com.example.data.mapper.syncDataMappers.*
 import com.example.data.remote.SyncDataApiService
 import com.example.data.reponse.ChampionResponse
@@ -28,6 +26,10 @@ class SyncDataRepositoryImpl(
     private val itemsRemoteDBOMapper: ItemsRemoteDBOMapper,
     private val champsDBOEntityMapper: ChampsDBOEntityMapper,
     private val itemsDAO: ItemsDAO,
+    private val setDAO: SetDAO,
+    private val traitsDAO: TraitsDAO,
+    private val traitRemoteToDBOMapper: TraitRemoteToDBOMapper,
+    private val setRemoteToDBOMapper: SetRemoteToDBOMapper
 ) : SyncDataRepository {
 
     override suspend fun syncListChamps(): Either<Failure, List<ChampsEntity>> =
@@ -55,6 +57,16 @@ class SyncDataRepositoryImpl(
                 val champsListResponse: List<ChampionResponse> = syncDataApiService.getChampsList()
                 val champsTraitsDBO = champTraitsMapper.mapList(champsListResponse)
                 champsTraitsDBO.forEach { champTraitsDAO.insertChampsTraits(it) }
+            }
+            if (traitsDAO.getAllTraits().isNullOrEmpty()) {
+                val traitResponse = syncDataApiService.getTraitsList()
+                val traitDBOs = traitRemoteToDBOMapper.mapList(traitResponse)
+                traitsDAO.insertTraits(traitDBOs)
+
+                traitResponse.forEach {
+                    val sets = setRemoteToDBOMapper.mapList(it.key, it.sets.defaultEmpty())
+                    setDAO.insertSets(sets)
+                }
             }
             val list: List<ChampsEntity> = champsDBOEntityMapper.mapList(champDBOs)
             return@runSuspendWithCatchError Either.Success(list)

@@ -24,7 +24,7 @@ class ChampsRemoteDBOMapper : MapperSuspend<ChampionResponse?, ChampDBO>() {
         "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${input?.name}_0.jpg"
 
     private fun createCoverAssets(input: ChampionResponse?) = "cover_images/champ_${input?.name}_cover.png"
-    private fun createImageAssets(input: ChampionResponse?) = "champ_${input?.name}.png"
+    private fun createImageAssets(input: ChampionResponse?) = "champs/champ_${input?.name}.png"
     private fun createImgUrl(name: String?): String {
         val url = "https://rerollcdn.com/characters/Skin/5/"
         return url + name.defaultEmpty().replace(" ", "").replace("'", "") + ".png"

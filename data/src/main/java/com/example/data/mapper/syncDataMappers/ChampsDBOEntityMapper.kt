@@ -15,11 +15,10 @@ class ChampsDBOEntityMapper : MapperSuspend<ChampDBO?, ChampsEntity>() {
             name = input?.name.defaultEmpty(),
             imgUrl = createImgUrl(input?.name),
             cost = input?.cost.defaultZero(),
-            imgPath = createImageAssets(input),
+            imgPath = input?.imagePath.defaultEmpty(),
         )
     }
 
-    private fun createImageAssets(input: ChampDBO?) = "champs/champ_${input?.name}.png"
     private fun createImgUrl(name: String?): String {
         val url = "https://rerollcdn.com/characters/Skin/5/"
         return url + name.defaultEmpty().replace(" ", "").replace("'", "") + ".png"

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="setAdapter"
+            type="com.example.sqlitedemo.feature.viewBinder.TraitsViewBinder.SetAdapter" />
+
+        <variable
+            name="champLeagueAdapter"
+            type="com.example.sqlitedemo.feature.viewBinder.TraitsViewBinder.ChampLeagueAdapter" />
+
+        <variable
+            name="trait"
+            type="com.example.domain.entities.ChampDetailEntity.Trait" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="@color/backgroundCardView"
+        app:cardCornerRadius="@dimen/dp_10">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    imgPath="@{trait.imgPath}"
+                    imgUrl="@{trait.imgUrl}"
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="@dimen/dp_25"
+                    android:layout_margin="@dimen/dp_5"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/no_image"
+                    tools:src="@tools:sample/avatars" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/dp_12"
+                        android:text="@{trait.name}"
+                        android:textColor="#FF8400"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/dp_12"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:text="@{trait.innate}"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        android:visibility="@{trait.innate != `` ? View.VISIBLE : View.GONE }" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/dp_12"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:text="@{trait.description}"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        android:visibility="@{trait.description != `` ? View.VISIBLE : View.GONE }" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        adapter="@{setAdapter}"
+                        setItems="@{trait.sets}"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp_12"
+                        android:text="@string/leagues"
+                        android:textSize="15sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        champLeagueAdapter="@{champLeagueAdapter}"
+                        champLeagues="@{trait.champLeagues}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:spanCount="6" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

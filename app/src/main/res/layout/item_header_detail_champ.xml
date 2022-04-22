@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="header"
+            type="com.example.domain.entities.ChampDetailEntity.DetailHeader" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/coverImg"
+        app:layout_constraintTop_toTopOf="@+id/coverImg">
+
+        <ImageView
+            android:id="@+id/coverImg"
+            imgPath="@{header.coverPath}"
+            imgUrl="@{header.coverUrl}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/no_image"
+            android:adjustViewBounds="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@color/backgroundColor" />
+
+        <ImageView
+            android:id="@+id/imgChamp"
+            imgPath="@{header.imgPath}"
+            imgUrl="@{header.imgUrl}"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_80"
+            android:layout_marginStart="@dimen/dp_40"
+            android:layout_marginBottom="@dimen/dp_60"
+            android:contentDescription="@string/no_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/item1"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:background="@drawable/border_item"
+            imgPath="@{header.items[0].imgPath}"
+            imgUrl="@{header.items[0].imgUrl}"
+            android:contentDescription="@string/no_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/item2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgChamp"
+            tools:src="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/item2"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:background="@drawable/border_item"
+            imgPath="@{header.items[1].imgPath}"
+            imgUrl="@{header.items[1].imgUrl}"
+            android:contentDescription="@string/no_image"
+            app:layout_constraintBottom_toBottomOf="@+id/item1"
+            app:layout_constraintEnd_toStartOf="@+id/item3"
+            app:layout_constraintStart_toEndOf="@+id/item1"
+            app:layout_constraintTop_toTopOf="@+id/item1"
+            tools:src="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/item3"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:background="@drawable/border_item"
+            imgPath="@{header.items[2].imgPath}"
+            imgUrl="@{header.items[2].imgUrl}"
+            android:contentDescription="@string/no_image"
+            app:layout_constraintBottom_toBottomOf="@+id/item2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/item2"
+            app:layout_constraintTop_toTopOf="@+id/item2"
+            tools:src="@tools:sample/avatars" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="20dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

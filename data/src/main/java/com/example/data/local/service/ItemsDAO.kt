@@ -19,4 +19,11 @@ interface ItemsDAO {
 
     @Query("DELETE FROM items")
     fun clearTable()
+
+    @Query(
+        "Select * from items as item" +
+                " inner join champ_items as champ on champ.champ = :champId " +
+                "and champ.item = item.name"
+    )
+    suspend fun getItemByChampId(champId: String): List<ItemsDBO>
 }

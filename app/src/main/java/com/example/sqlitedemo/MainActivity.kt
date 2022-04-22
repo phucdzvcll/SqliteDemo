@@ -1,6 +1,7 @@
 package com.example.sqlitedemo
 
 import android.os.Bundle
+import android.view.MenuItem
 import com.example.common_android.*
 import com.example.common_android.navigation.NavigateAction
 import com.example.sqlitedemo.feature.DetailChamp
@@ -27,5 +28,14 @@ class MainActivity : BaseActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         popFragment()
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

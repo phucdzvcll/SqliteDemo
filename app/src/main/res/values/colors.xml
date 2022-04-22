@@ -13,5 +13,6 @@
     <color name="color_9f9c">#C89F9C</color>
     <color name="color_dc69">#DDBC69</color>
     <color name="backgroundColor">#3A506B</color>
+    <color name="backgroundCardView">#1C2541</color>
 
 </resources>

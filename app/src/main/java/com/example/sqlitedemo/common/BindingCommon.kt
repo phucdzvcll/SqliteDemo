@@ -20,10 +20,10 @@ object BindingCommon {
 
     @BindingAdapter(value = ["imgPath", "imgUrl"], requireAll = true)
     @JvmStatic
-    fun loadImageByBitmap(imageView: ImageView, imgPath: String, imgUrl: String) {
+    fun loadImageByBitmap(imageView: ImageView, imgPath: String?, imgUrl: String?) {
         try {
             // get input stream
-            val ims: InputStream = imageView.context.assets.open(imgPath)
+            val ims: InputStream = imageView.context.assets.open(imgPath.defaultEmpty())
             // load image as Drawable
             val d = Drawable.createFromStream(ims, null)
             // set image to ImageView

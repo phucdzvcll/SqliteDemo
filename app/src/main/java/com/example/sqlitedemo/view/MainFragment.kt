@@ -26,6 +26,7 @@ class MainFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         mMainBinding = FragmentMainBinding.inflate(inflater, container, false)
+        syncDataViewModel.syncListChamps()
         return mMainBinding.root
     }
 
