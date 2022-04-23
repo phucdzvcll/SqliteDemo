@@ -7,7 +7,7 @@
 
         <variable
             name="detailChampViewModel"
-            type="com.example.sqlitedemo.feature.viewModel.DetailChampViewModel" />
+            type="com.example.sqlitedemo.feature.champDetail.viewModel.DetailChampViewModel" />
     </data>
 
     <LinearLayout
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:gravity="top"
         android:orientation="vertical"
-        tools:context=".feature.DetailChamp">
+        tools:context=".feature.champDetail.DetailChamp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolBar"

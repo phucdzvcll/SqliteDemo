@@ -7,27 +7,23 @@ import com.example.common_jvm.extension.writeTimeOut
 import com.example.data.exception_interceptor.RemoteExceptionInterceptor
 import com.example.data.local.SqliteRoomDatabase
 import com.example.data.mapper.ChampsDBOToEntityMapper
-import com.example.data.mapper.detail.ChampByTraitMapper
-import com.example.data.mapper.detail.DetailChampHeaderMapper
-import com.example.data.mapper.detail.SetDBOtoEntityMapper
-import com.example.data.mapper.detail.TraitDBOtoEntityMapper
+import com.example.data.mapper.champDetail.ChampByTraitMapper
+import com.example.data.mapper.champDetail.DetailChampHeaderMapper
+import com.example.data.mapper.champDetail.SetDBOtoEntityMapper
+import com.example.data.mapper.champDetail.TraitDBOtoEntityMapper
+import com.example.data.mapper.itemDetail.ItemDetailMapper
 import com.example.data.mapper.items.ItemDBOtoEntityMapper
 import com.example.data.mapper.syncDataMappers.*
 import com.example.data.remote.SyncDataApiService
-import com.example.data.repo.ChampRepositoryImpl
-import com.example.data.repo.DetailChampRepositoryImpl
-import com.example.data.repo.ItemRepositoryImpl
-import com.example.data.repo.SyncDataRepositoryImpl
-import com.example.domain.repo.ChampRepository
-import com.example.domain.repo.DetailChampRepository
-import com.example.domain.repo.ItemRepository
-import com.example.domain.repo.SyncDataRepository
+import com.example.data.repo.*
+import com.example.domain.repo.*
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import kotlin.math.sign
 
 val createRemoteModule = module {
     single { RemoteExceptionInterceptor() }
@@ -61,6 +57,7 @@ val createRemoteModule = module {
     factory { SetDBOtoEntityMapper() }
     factory { ChampByTraitMapper() }
     factory { ItemDBOtoEntityMapper() }
+    factory { ItemDetailMapper() }
     factory { TraitDBOtoEntityMapper(setDBOtoEntityMapper = get(), champByTraitMapper = get()) }
     factory { DetailChampHeaderMapper(itemDetailMapper = get()) }
 
@@ -121,6 +118,14 @@ val createRemoteModule = module {
             champsRemoteDBOMapper = get(),
             champsDBOEntityMapper = get(),
             syncDataApiService = get(),
+        )
+    }
+
+    single<ItemDetailRepository> {
+        ItemDetailRepositoryImpl(
+            remoteExceptionInterceptor = get(),
+            itemsDAO = get(),
+            itemDetailMapper = get()
         )
     }
 }

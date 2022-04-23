@@ -1,22 +1,31 @@
 package com.example.sqlitedemo
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.MenuItem
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.common_android.*
 import com.example.common_android.navigation.NavigateAction
-import com.example.sqlitedemo.feature.DetailChamp
+import com.example.sqlitedemo.feature.champDetail.DetailChamp
 import com.example.sqlitedemo.main.displayAllChamp.view.AllChampFragment
 import com.example.sqlitedemo.view.MainFragment
-import com.example.sqlitedemo.viewmodel.DataViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val fragment = MainFragment.newInstance()
-        replaceFragment(fragment, R.id.frameHome)
+        splashScreen.setKeepOnScreenCondition { true }
+        Thread {
+            SystemClock.sleep(1000) // Sleep 4 seconds
+            runOnUiThread {
+                splashScreen.setKeepOnScreenCondition { false }
+                val fragment = MainFragment.newInstance()
+                replaceFragment(fragment, R.id.frameHome)
+            }
+        }.start()
+
     }
 
     override fun onNavigateTo(action: NavigateAction.ToAction) {
@@ -31,6 +40,7 @@ class MainActivity : BaseActivity() {
         super.onBackPressed()
         popFragment()
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {

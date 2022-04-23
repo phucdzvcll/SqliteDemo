@@ -3,6 +3,7 @@ package com.example.sqlitedemo.view
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.example.sqlitedemo.main.AboutThisAppFragment
 import com.example.sqlitedemo.main.displayAllChamp.view.AllChampFragment
 import com.example.sqlitedemo.main.displayAllItems.AllItemFragment
 
@@ -22,6 +23,7 @@ class MainPageAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(
         return when (page.itemType) {
             ItemType.Champs -> AllChampFragment.newInstance()
             ItemType.Items -> AllItemFragment.newInstance()
+            ItemType.About -> AboutThisAppFragment.newInstance()
         }
     }
 
@@ -34,5 +36,6 @@ class MainPageAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(
     enum class ItemType {
         Champs,
         Items,
+        About,
     }
 }

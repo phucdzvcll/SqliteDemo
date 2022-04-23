@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.entities.ItemEntity
 import com.example.sqlitedemo.databinding.ItemShowBinding
 
-class ShowItemAdapter : RecyclerView.Adapter<ShowItemAdapter.ItemViewHolder>() {
+class ShowItemAdapter(private val onItemClick: OnItemClick) : RecyclerView.Adapter<ShowItemAdapter.ItemViewHolder>() {
 
     private val items: MutableList<ItemEntity> = mutableListOf()
 
@@ -28,7 +28,11 @@ class ShowItemAdapter : RecyclerView.Adapter<ShowItemAdapter.ItemViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind(item = items[position])
+        val item = items[position]
+        holder.bind(item = item)
+        holder.itemView.setOnClickListener {
+            onItemClick.onClick(item.id)
+        }
     }
 
     override fun getItemCount() = items.size
@@ -37,5 +41,9 @@ class ShowItemAdapter : RecyclerView.Adapter<ShowItemAdapter.ItemViewHolder>() {
         this.items.clear()
         this.items.addAll(items)
         notifyDataSetChanged()
+    }
+
+    interface OnItemClick{
+        fun onClick(itemId: Int)
     }
 }

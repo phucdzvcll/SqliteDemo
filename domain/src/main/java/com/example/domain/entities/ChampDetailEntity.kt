@@ -19,6 +19,7 @@ data class ChampDetailEntity(
             val imgPath: String,
             val imgUrl: String,
             val itemName: String,
+            val itemId: Int
         )
     }
 

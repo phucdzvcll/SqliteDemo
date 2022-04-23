@@ -13,5 +13,18 @@
     <string name="no_image">noImage</string>
     <string name="leagues">Leagues: </string>
     <string name="retry">Retry</string>
+    <string name="recipe">Recipe:</string>
+    <string name="app_purpose">The application provides information about Champions and Items in the game teamfight tactics to help players grasp the information easily</string>
+    <string name="bottom_label_team">This app is a product of Tiny Flutter Team</string>
+    <string name="bottom_label_author">Made by PhucTran</string>
+    <string name="app_name_title">TFT DATABASE</string>
+    <string name="the_clean_architecture">- <u>The Clean Architecture</u></string>
+    <string name="room_sqlite">- <u>Room Database (Sqlite under hood)</u></string>
+    <string name="mvvm">- <u>MVVM Design Pattern</u></string>
+    <string name="applied_technologies">Applied technologies:</string>
+    <string name="github">- <u>Github</u></string>
+    <string name="source">Source:</string>
+    <string name="tks">Thank you</string>
+    <string name="app_target">This application was created to illustrate the use of SQLite as a database for mobile applications</string>
 
 </resources>

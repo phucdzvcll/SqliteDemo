@@ -11,8 +11,8 @@ import com.example.data.local.service.ChampDAO
 import com.example.data.local.service.ItemsDAO
 import com.example.data.local.service.SetDAO
 import com.example.data.local.service.TraitsDAO
-import com.example.data.mapper.detail.DetailChampHeaderMapper
-import com.example.data.mapper.detail.TraitDBOtoEntityMapper
+import com.example.data.mapper.champDetail.DetailChampHeaderMapper
+import com.example.data.mapper.champDetail.TraitDBOtoEntityMapper
 import com.example.domain.entities.ChampDetailEntity
 import com.example.domain.repo.DetailChampRepository
 

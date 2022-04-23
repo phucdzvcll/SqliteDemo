@@ -66,6 +66,13 @@ class MainFragment : BaseFragment() {
                 itemType = MainPageAdapter.ItemType.Items
             )
         )
+        tabs.add(
+            MainPageAdapter.ItemPage(
+                title = "About this app",
+                iconResId = R.drawable.ic_baseline_bookmark_24,
+                itemType = MainPageAdapter.ItemType.About
+            )
+        )
     }
 
     private fun initTabLayout() {

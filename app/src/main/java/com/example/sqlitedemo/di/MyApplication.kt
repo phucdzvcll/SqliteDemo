@@ -5,6 +5,7 @@ import com.example.common_android.di.createCommonModule
 import com.example.data.di.createRemoteModule
 import com.example.domain.di.createDomainModule
 import com.example.sqlitedemo.feature.detailChampModule
+import com.example.sqlitedemo.feature.itemDetail.di.itemDetailModule
 import com.example.sqlitedemo.main.displayAllChamp.di.displayChampModule
 import com.example.sqlitedemo.main.displayAllItems.di.displayItemModule
 import com.example.sqlitedemo.viewmodel.DataViewModel
@@ -25,6 +26,7 @@ class MyApplication : Application() {
                 detailChampModule,
                 displayChampModule,
                 displayItemModule,
+                itemDetailModule,
                 module {
                     viewModel {
                         DataViewModel(

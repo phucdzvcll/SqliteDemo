@@ -8,7 +8,9 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.common_android.BaseFragment
 import com.example.domain.entities.ItemEntity
+import com.example.sqlitedemo.MainActivity
 import com.example.sqlitedemo.databinding.FragmentAllItemBinding
+import com.example.sqlitedemo.feature.itemDetail.ItemDialogFragment
 import com.example.sqlitedemo.main.displayAllItems.adapter.ShowItemAdapter
 import com.example.sqlitedemo.main.displayAllItems.viewModel.ItemViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -29,7 +31,13 @@ class AllItemFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.itemRcv.adapter = ShowItemAdapter()
+        binding.itemRcv.adapter = ShowItemAdapter(object : ShowItemAdapter.OnItemClick {
+            override fun onClick(itemId: Int) {
+                ItemDialogFragment.newInstance(itemId)
+                    .show((activity as MainActivity).supportFragmentManager, null)
+            }
+        })
+
     }
 
     object Biding {

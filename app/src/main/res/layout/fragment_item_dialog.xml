@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="itemDetailViewModel"
+            type="com.example.sqlitedemo.feature.itemDetail.viewModel.ItemDetailViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                imgPath="@{itemDetailViewModel.itemDetailLiveData.imgPath}"
+                imgUrl="@{itemDetailViewModel.itemDetailLiveData.imgUrl}"
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_80"
+                android:layout_margin="@dimen/dp_8" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@{itemDetailViewModel.itemDetailLiveData.itemName}"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/dp_8"
+            android:background="@color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/dp_8"
+            android:text="@{itemDetailViewModel.itemDetailLiveData.descriptor}"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/dp_8"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_8"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center"
+                android:text="@string/recipe"
+                android:textColor="@color/white" />
+
+            <ImageView
+                imgPath="@{itemDetailViewModel.itemDetailLiveData.element1Path}"
+                imgUrl="@{itemDetailViewModel.itemDetailLiveData.element1Url}"
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_48"
+                android:layout_margin="@dimen/dp_4"
+                android:background="@drawable/border_gold"
+                android:contentDescription="@string/no_image"
+                android:visibility="@{itemDetailViewModel.itemDetailLiveData.element1Path == `` ? View.GONE : View.VISIBLE}" />
+
+            <ImageView
+                imgPath="@{itemDetailViewModel.itemDetailLiveData.element2Path}"
+                imgUrl="@{itemDetailViewModel.itemDetailLiveData.element2Url}"
+                android:layout_width="@dimen/dp_48"
+                android:layout_height="@dimen/dp_48"
+                android:layout_margin="@dimen/dp_4"
+                android:background="@drawable/border_gold"
+                android:contentDescription="@string/no_image"
+                android:visibility="@{itemDetailViewModel.itemDetailLiveData.element2Path == `` ? View.GONE : View.VISIBLE}" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>
