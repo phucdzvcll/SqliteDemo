@@ -12,19 +12,19 @@ import com.example.data.remote.SyncDataApiService
 import com.example.data.reponse.ChampionResponse
 import com.example.data.reponse.ItemResponse
 import com.example.domain.entities.ChampsEntity
+import com.example.domain.entities.SyncDataEntity
 import com.example.domain.repo.SyncDataRepository
 
 class SyncDataRepositoryImpl(
     private val remoteExceptionInterceptor: RemoteExceptionInterceptor,
-    private val syncDataApiService: SyncDataApiService,
     private val champDAO: ChampDAO,
+    private val syncDataApiService: SyncDataApiService,
     private val champTraitsDAO: ChampTraitsDAO,
     private val champItemsDAO: ChampItemsDAO,
     private val champTraitsMapper: ChampTraitsMapper,
     private val champsRemoteDBOMapper: ChampsRemoteDBOMapper,
     private val champItemsMapper: ChampItemsMapper,
     private val itemsRemoteDBOMapper: ItemsRemoteDBOMapper,
-    private val champsDBOEntityMapper: ChampsDBOEntityMapper,
     private val itemsDAO: ItemsDAO,
     private val setDAO: SetDAO,
     private val traitsDAO: TraitsDAO,
@@ -32,15 +32,13 @@ class SyncDataRepositoryImpl(
     private val setRemoteToDBOMapper: SetRemoteToDBOMapper
 ) : SyncDataRepository {
 
-    override suspend fun syncListChamps(): Either<Failure, List<ChampsEntity>> =
+    override suspend fun syncListChamps(): Either<Failure, SyncDataEntity> =
         Either.runSuspendWithCatchError(
             listOf(remoteExceptionInterceptor)
         ) {
-            var champDBOs: List<ChampDBO> = champDAO.getAllChamp()
-            if (champDBOs.isNullOrEmpty()) {
+            if (champDAO.getAllChamp().isNullOrEmpty()) {
                 val champsListResponse: List<ChampionResponse> = syncDataApiService.getChampsList()
                 val userDBOS: List<ChampDBO> = champsRemoteDBOMapper.mapList(champsListResponse)
-                champDBOs = userDBOS
                 champDAO.insertChamps(userDBOS)
             }
             if (itemsDAO.getAllItems().isNullOrEmpty()) {
@@ -68,7 +66,6 @@ class SyncDataRepositoryImpl(
                     setDAO.insertSets(sets)
                 }
             }
-            val list: List<ChampsEntity> = champsDBOEntityMapper.mapList(champDBOs)
-            return@runSuspendWithCatchError Either.Success(list)
+            return@runSuspendWithCatchError Either.Success(SyncDataEntity())
         }
 }

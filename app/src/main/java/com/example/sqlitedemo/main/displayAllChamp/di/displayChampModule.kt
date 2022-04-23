@@ -1,14 +1,14 @@
 package com.example.sqlitedemo.main.displayAllChamp.di
 
-import com.example.sqlitedemo.main.displayAllChamp.viewmodel.SyncDataViewModel
+import com.example.sqlitedemo.main.displayAllChamp.viewModel.ChampViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val displayChampModule = module {
+val displayChampModule = module{
     viewModel {
-        SyncDataViewModel(
+        ChampViewModel(
             appDispatchers = get(),
-            syncListChampsUseCase = get(),
+            getAllChampUseCase = get()
         )
     }
 }

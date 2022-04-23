@@ -11,11 +11,16 @@ import com.example.data.mapper.detail.ChampByTraitMapper
 import com.example.data.mapper.detail.DetailChampHeaderMapper
 import com.example.data.mapper.detail.SetDBOtoEntityMapper
 import com.example.data.mapper.detail.TraitDBOtoEntityMapper
+import com.example.data.mapper.items.ItemDBOtoEntityMapper
 import com.example.data.mapper.syncDataMappers.*
 import com.example.data.remote.SyncDataApiService
+import com.example.data.repo.ChampRepositoryImpl
 import com.example.data.repo.DetailChampRepositoryImpl
+import com.example.data.repo.ItemRepositoryImpl
 import com.example.data.repo.SyncDataRepositoryImpl
+import com.example.domain.repo.ChampRepository
 import com.example.domain.repo.DetailChampRepository
+import com.example.domain.repo.ItemRepository
 import com.example.domain.repo.SyncDataRepository
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
@@ -55,6 +60,7 @@ val createRemoteModule = module {
     factory { TraitRemoteToDBOMapper() }
     factory { SetDBOtoEntityMapper() }
     factory { ChampByTraitMapper() }
+    factory { ItemDBOtoEntityMapper() }
     factory { TraitDBOtoEntityMapper(setDBOtoEntityMapper = get(), champByTraitMapper = get()) }
     factory { DetailChampHeaderMapper(itemDetailMapper = get()) }
 
@@ -77,7 +83,6 @@ val createRemoteModule = module {
             champItemsMapper = get(),
             champsRemoteDBOMapper = get(),
             itemsRemoteDBOMapper = get(),
-            champsDBOEntityMapper = get(),
             traitRemoteToDBOMapper = get(),
             setRemoteToDBOMapper = get(),
             itemsDAO = get(),
@@ -90,22 +95,32 @@ val createRemoteModule = module {
     single<DetailChampRepository> {
         DetailChampRepositoryImpl(
             remoteExceptionInterceptor = get(),
-            syncDataApiService = get(),
             champDAO = get(),
-            champTraitsDAO = get(),
-            champTraitsMapper = get(),
-            champItemsMapper = get(),
-            champsRemoteDBOMapper = get(),
-            itemsRemoteDBOMapper = get(),
-            champsDBOEntityMapper = get(),
-            traitRemoteToDBOMapper = get(),
-            setRemoteToDBOMapper = get(),
             detailChampHeaderMapper = get(),
             traitDBOtoEntityMapper = get(),
             itemsDAO = get(),
             setDAO = get(),
-            traitsDAO = get(),
-            champItemsDAO = get()
+            traitsDAO = get()
+        )
+    }
+
+    single<ItemRepository> {
+        ItemRepositoryImpl(
+            remoteExceptionInterceptor = get(),
+            itemDBOtoEntityMapper = get(),
+            itemsDAO = get(),
+            syncDataApiService = get(),
+            itemsRemoteDBOMapper = get(),
+        )
+    }
+
+    single<ChampRepository> {
+        ChampRepositoryImpl(
+            champDAO = get(),
+            remoteExceptionInterceptor = get(),
+            champsRemoteDBOMapper = get(),
+            champsDBOEntityMapper = get(),
+            syncDataApiService = get(),
         )
     }
 }

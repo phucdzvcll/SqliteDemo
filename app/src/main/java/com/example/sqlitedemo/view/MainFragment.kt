@@ -8,13 +8,13 @@ import com.example.common_android.BaseFragment
 import com.example.sqlitedemo.R
 import com.example.sqlitedemo.databinding.FragmentMainBinding
 import com.example.sqlitedemo.databinding.ItemTabMainBinding
-import com.example.sqlitedemo.main.displayAllChamp.viewmodel.SyncDataViewModel
+import com.example.sqlitedemo.viewmodel.DataViewModel
 
 import com.google.android.material.tabs.TabLayout
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : BaseFragment() {
-    private val syncDataViewModel: SyncDataViewModel by viewModel()
+    private val dataViewModel: DataViewModel by viewModel()
     private lateinit var mMainBinding: FragmentMainBinding
     private var mainPageAdapter: MainPageAdapter? = null
     private val tabs = mutableListOf<MainPageAdapter.ItemPage>()
@@ -26,15 +26,23 @@ class MainFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         mMainBinding = FragmentMainBinding.inflate(inflater, container, false)
-        syncDataViewModel.syncListChamps()
+        mMainBinding.lifecycleOwner = viewLifecycleOwner
+        mMainBinding.syncDataViewModel = dataViewModel
+        dataViewModel.syncData()
         return mMainBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView()
-        setUpViewPager()
-        initTabLayout()
+        mMainBinding.retryBtn.setOnClickListener {
+            dataViewModel.syncData()
+        }
+        dataViewModel.synChampLiveData.observe(viewLifecycleOwner) {
+            initView()
+            setUpViewPager()
+            initTabLayout()
+        }
+
     }
 
     private fun initView() {
@@ -65,7 +73,11 @@ class MainFragment : BaseFragment() {
         for (tab in tabs) {
             val tabView: TabLayout.Tab = mMainBinding.tlMain.newTab()
             val customTabView =
-                ItemTabMainBinding.inflate(LayoutInflater.from(mMainBinding.tlMain.context), null, false)
+                ItemTabMainBinding.inflate(
+                    LayoutInflater.from(mMainBinding.tlMain.context),
+                    null,
+                    false
+                )
             customTabView.txtTabHomeTitle.text = tab.title
             customTabView.imgTabHomeIcon.setImageResource(tab.iconResId)
             tabView.customView = customTabView.root

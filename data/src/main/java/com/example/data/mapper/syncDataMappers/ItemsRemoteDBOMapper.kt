@@ -36,6 +36,7 @@ class ItemsRemoteDBOMapper : MapperSuspend<ItemResponse?, ItemsDBO>() {
             shadowPenalty = input?.shadowPenalty.defaultEmpty(),
             isShadow = input?.isShadow.defaultFalse(),
             isElement = input?.isElement.defaultFalse(),
+            isSpecial = input?.isSpecial.defaultFalse(),
             element1 = element1,
             element2 = element2,
         )
@@ -65,6 +66,6 @@ class ItemsRemoteDBOMapper : MapperSuspend<ItemResponse?, ItemsDBO>() {
             "https://rerollcdn.com/items/$param.png"
         }
     }
-    private fun createImageAssets(input: ItemResponse?) = "items/item_${input?.name}.png"
+    private fun createImageAssets(input: ItemResponse?) = "items/item_${input?.name?.replace(".","")}.png"
 
 }

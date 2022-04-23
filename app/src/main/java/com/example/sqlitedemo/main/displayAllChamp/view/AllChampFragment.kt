@@ -11,12 +11,13 @@ import com.example.common_android.navigation.NavigateAction
 import com.example.domain.entities.ChampsEntity
 import com.example.sqlitedemo.databinding.FragmentShowAllBinding
 import com.example.sqlitedemo.main.displayAllChamp.adapter.ChampionAdapter
-import com.example.sqlitedemo.main.displayAllChamp.viewmodel.SyncDataViewModel
+import com.example.sqlitedemo.main.displayAllChamp.viewModel.ChampViewModel
+import com.example.sqlitedemo.viewmodel.DataViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class AllChampFragment : BaseFragment() {
     private lateinit var binding: FragmentShowAllBinding
-    private val syncDataViewModel: SyncDataViewModel by sharedViewModel()
+    private val champViewModel: ChampViewModel by sharedViewModel()
     lateinit var adapter : ChampionAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,8 +25,8 @@ class AllChampFragment : BaseFragment() {
     ): View {
         binding = FragmentShowAllBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.syncDataViewModel = syncDataViewModel
-        syncDataViewModel.syncListChamps()
+        binding.champViewModel = champViewModel
+        champViewModel.getAllChamps()
         adapter = ChampionAdapter(object : ChampionAdapter.ItemClick{
             override fun onClick(champId: String) {
                 navigateTo(GoToDetailChamp(champId))

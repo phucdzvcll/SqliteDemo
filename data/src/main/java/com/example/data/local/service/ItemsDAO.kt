@@ -15,7 +15,7 @@ interface ItemsDAO {
 
 
     @Query("SELECT * FROM items")
-    fun getAllItems(): List<ItemsDBO>
+    suspend fun getAllItems(): List<ItemsDBO>
 
     @Query("DELETE FROM items")
     fun clearTable()

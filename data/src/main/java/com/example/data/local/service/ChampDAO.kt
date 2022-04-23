@@ -10,7 +10,7 @@ import com.example.data.local.response.ChampTraitsDBO
 @Dao
 interface ChampDAO {
     @Query("SELECT * FROM champ")
-    fun getAllChamp(): List<ChampDBO>
+    suspend fun getAllChamp(): List<ChampDBO>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertChamps(userDBOS: List<ChampDBO>)

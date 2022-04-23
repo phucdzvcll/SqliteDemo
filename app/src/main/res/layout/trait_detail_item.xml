@@ -8,14 +8,6 @@
         <import type="android.view.View" />
 
         <variable
-            name="setAdapter"
-            type="com.example.sqlitedemo.feature.viewBinder.TraitsViewBinder.SetAdapter" />
-
-        <variable
-            name="champLeagueAdapter"
-            type="com.example.sqlitedemo.feature.viewBinder.TraitsViewBinder.ChampLeagueAdapter" />
-
-        <variable
             name="trait"
             type="com.example.domain.entities.ChampDetailEntity.Trait" />
     </data>
@@ -87,11 +79,11 @@
                         android:visibility="@{trait.description != `` ? View.VISIBLE : View.GONE }" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        adapter="@{setAdapter}"
-                        setItems="@{trait.sets}"
-                        android:layout_marginTop="@dimen/dp_8"
+                        android:id="@+id/setRvc"
+                        data="@{trait.sets}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_8"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                     <TextView
@@ -102,8 +94,8 @@
                         android:textSize="15sp" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        champLeagueAdapter="@{champLeagueAdapter}"
-                        champLeagues="@{trait.champLeagues}"
+                        android:id="@+id/leagueRvc"
+                        item="@{trait.champLeagues}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"

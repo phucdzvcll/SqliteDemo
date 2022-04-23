@@ -25,8 +25,8 @@ class TraitsViewBinder(
             currentChampId: String
         ) {
             binding.trait = trait
-            binding.setAdapter = SetAdapter()
-            binding.champLeagueAdapter = ChampLeagueAdapter(onChampLeagueTap, currentChampId)
+            binding.setRvc.adapter = SetAdapter()
+            binding.leagueRvc.adapter = ChampLeagueAdapter(onChampLeagueTap, currentChampId)
         }
     }
 
@@ -80,6 +80,7 @@ class TraitsViewBinder(
         fun setData(sets: List<ChampDetailEntity.Trait.Set>) {
             this.sets.clear()
             this.sets.addAll(sets)
+            notifyDataSetChanged()
         }
     }
 
@@ -130,32 +131,27 @@ class TraitsViewBinder(
         fun setData(champLeagues: List<ChampDetailEntity.Trait.ChampLeague>) {
             this.champLeagues.clear()
             this.champLeagues.addAll(champLeagues)
+            notifyDataSetChanged()
         }
     }
 
     object Binding {
-        @BindingAdapter(value = ["setItems", "adapter"], requireAll = true)
+        @BindingAdapter("data")
         @JvmStatic
         fun setItem(
             recyclerView: RecyclerView,
             sets: List<ChampDetailEntity.Trait.Set>,
-            setAdapter: SetAdapter
         ) {
-            recyclerView.adapter = setAdapter
-            setAdapter.setData(sets)
-            setAdapter.notifyDataSetChanged()
+            (recyclerView.adapter as SetAdapter).setData(sets)
         }
 
-        @BindingAdapter(value = ["champLeagues", "champLeagueAdapter"], requireAll = true)
+        @BindingAdapter("item")
         @JvmStatic
         fun setLeague(
             recyclerView: RecyclerView,
             champLeagues: List<ChampDetailEntity.Trait.ChampLeague>,
-            champLeagueAdapter: ChampLeagueAdapter
         ) {
-            recyclerView.adapter = champLeagueAdapter
-            champLeagueAdapter.setData(champLeagues)
-            champLeagueAdapter.notifyDataSetChanged()
+            (recyclerView.adapter as ChampLeagueAdapter).setData(champLeagues)
         }
     }
 

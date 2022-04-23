@@ -7,6 +7,8 @@ import com.example.common_android.navigation.NavigateAction
 import com.example.sqlitedemo.feature.DetailChamp
 import com.example.sqlitedemo.main.displayAllChamp.view.AllChampFragment
 import com.example.sqlitedemo.view.MainFragment
+import com.example.sqlitedemo.viewmodel.DataViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainActivity : BaseActivity() {
